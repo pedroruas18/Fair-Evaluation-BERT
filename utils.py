@@ -14,12 +14,15 @@ def read_vocab(path: str) -> pd.DataFrame:
 
 def read_annotation_file(ann_file_path: str) -> List[Dict[str, str]]:
     data: List[Dict[str, str]] = []
+    doc_id =ann_file_path.strip('.concept').split('/')[-1]
+
     with open(ann_file_path, encoding='utf-8') as input_stream:
         for row_id, line in enumerate(input_stream):
             splitted_line = line.strip().split('||')
             mention = splitted_line[-2]
             concept_id = splitted_line[-1]
-            data.append({'entity_text': mention, 'label':concept_id})
+            data.append({'doc_id': doc_id, 'entity_text': mention, 'label':concept_id})
+            
     return data
 
 
@@ -36,4 +39,4 @@ def save_dataset(dataset: List[Dict[str, str]], path: str) -> None:
     fpath: str = os.path.join(path, '0.concept')
     with open(fpath, 'w', encoding='utf-8') as output_stream:
         for entity in dataset:
-            output_stream.write(f"-1||0|0||Disease||{entity['entity_text']}||{entity['label']}\n")
+            output_stream.write(f"{entity['doc_id']}||0|0||Disease||{entity['entity_text']}||{entity['label']}\n")
