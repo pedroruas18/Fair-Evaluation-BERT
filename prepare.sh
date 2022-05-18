@@ -25,4 +25,4 @@ python process_data.py --train_data_folder coling_datasets/bc5cdr-chemical/proce
 python generate_dicts.py bc5cdr_chem
 
 
-In each of the output dirs there wiil be the files 'test.json' and 'test_refined.json'.
+#In each of the output dirs there wiil be the files 'test.json' and 'test_refined.json'.
